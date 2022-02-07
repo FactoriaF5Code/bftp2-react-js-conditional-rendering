@@ -1,25 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
+import TopNavBar from "./TopNavBar";
+import Content from "./Content";
+import {useState} from "react";
+import QuienesSomos from "./QuienesSomos";
+import {Route, Routes} from "react-router-dom";
+
+function Footer() {
+    return null;
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [coders, setCoders] = useState([
+        {name: "Candy", tech: "kotlin"},
+        {name: "Alisa", tech: "Java"}
+    ]);
+
+    // 🚩 flag
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    return (
+        <div className="App">
+            <TopNavBar
+                showLoginButton={!loggedIn}
+                onLoginChange={(isLogin) => setLoggedIn(isLogin)}/>
+            <Routes>
+                <Route path="/home" element={<Content coders={coders}/>}/>
+                <Route path="/about" element={<QuienesSomos />}/>
+            </Routes>
+            <Footer/>
+        </div>
+    );
 }
 
 export default App;
